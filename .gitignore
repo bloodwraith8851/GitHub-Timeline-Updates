@@ -1,0 +1,21 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs and temporary files
+logs/
+*.log
+codes/
+registered_emails.txt
+
+# Vercel
+.vercel
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# System files
+.DS_Store
+Thumbs.db 
