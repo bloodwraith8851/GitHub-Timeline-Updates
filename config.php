@@ -49,8 +49,8 @@ function log_message($message, $type = 'info') {
 }
 
 // Vercel-specific directory paths
-define('CODES_DIR', '/tmp/codes');
-define('EMAILS_FILE', '/tmp/registered_emails.txt');
+define('CODES_DIR', __DIR__ . '/codes');
+define('EMAILS_FILE', __DIR__ . '/registered_emails.txt');
 
 // Create necessary directories
 if (!is_dir(CODES_DIR)) {
