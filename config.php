@@ -70,9 +70,6 @@ if (file_exists($env_path)) {
     }
 }
 
-// Load environment variables first
-loadEnv();
-
 // GitHub API Configuration
 define('GITHUB_API_TOKEN', getenv('GITHUB_TOKEN') ?: '');
 
