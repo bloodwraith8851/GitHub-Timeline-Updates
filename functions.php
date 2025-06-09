@@ -65,10 +65,63 @@ function unregisterEmail(string $email): bool {
 
 function sendVerificationEmail(string $email, string $code): bool {
     $subject = "Verify your GitHub Timeline Updates subscription";
-    $message = "Thank you for subscribing to GitHub Timeline Updates!\n\n";
-    $message .= "Your verification code is: $code\n\n";
-    $message .= "Please enter this code on the website to complete your subscription.\n";
     
+    // Create a modern HTML email template
+    $message = "
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>Verify Your Email</title>
+    </head>
+    <body style='margin: 0; padding: 0; background-color: #0d1117; font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Helvetica, Arial, sans-serif;'>
+        <div style='max-width: 600px; margin: 0 auto; background: linear-gradient(180deg, #1a2433 0%, #0d1117 100%); border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); margin-top: 40px; margin-bottom: 40px; overflow: hidden;'>
+            <!-- Header -->
+            <div style='text-align: center; padding: 40px 20px; background: linear-gradient(180deg, #1a2433 0%, rgba(26,36,51,0.8) 100%); position: relative; overflow: hidden;'>
+                <div style='position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #2ea043, #238636, #2ea043);'></div>
+                <div style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(46,160,67,0.15), transparent 70%);'></div>
+                <div style='position: relative; display: inline-block; margin-bottom: 20px;'>
+                    <div style='width: 80px; height: 80px; background: linear-gradient(135deg, #238636, #2ea043); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 8px 24px rgba(46,160,67,0.3);'>
+                        <svg style='width: 40px; height: 40px; fill: #ffffff;' viewBox='0 0 16 16'>
+                            <path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'/>
+                        </svg>
+                    </div>
+                </div>
+                <h1 style='color: #ffffff; margin: 0 0 12px; font-size: 28px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.2);'>Verify Your Email</h1>
+                <p style='color: #8b949e; margin: 0; font-size: 16px; max-width: 400px; margin: 0 auto;'>You're almost ready to receive GitHub Timeline Updates!</p>
+            </div>
+
+            <!-- Content -->
+            <div style='padding: 40px 30px; text-align: center;'>
+                <p style='color: #c9d1d9; font-size: 16px; line-height: 1.5; margin: 0 0 25px;'>
+                    Thanks for signing up! To complete your registration and start receiving GitHub Timeline Updates, please enter this verification code on the website:
+                </p>
+                
+                <!-- Verification Code Box -->
+                <div style='background: linear-gradient(145deg, #1f2937 0%, #111827 100%); border-radius: 12px; padding: 20px; margin: 0 auto 30px; max-width: 300px; border: 1px solid rgba(240,246,252,0.1);'>
+                    <div style='font-family: monospace; font-size: 32px; letter-spacing: 4px; color: #2ea043; font-weight: bold; text-shadow: 0 0 10px rgba(46,160,67,0.3);'>
+                        $code
+                    </div>
+                </div>
+
+                <p style='color: #8b949e; font-size: 14px; margin: 25px 0 0;'>
+                    This code will expire in 10 minutes for security purposes.<br>
+                    If you didn't request this verification, please ignore this email.
+                </p>
+            </div>
+
+            <!-- Footer -->
+            <div style='text-align: center; padding: 30px; background: linear-gradient(0deg, #1a2433 0%, transparent 100%); border-top: 1px solid rgba(240,246,252,0.1);'>
+                <p style='color: #8b949e; margin: 0; font-size: 14px;'>
+                    GitHub Timeline Updates<br>
+                    Stay updated with your latest GitHub activities
+                </p>
+            </div>
+        </div>
+    </body>
+    </html>";
+
     return sendEmail($email, $subject, $message);
 }
 
